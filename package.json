@@ -1,0 +1,13 @@
+{
+  "name": "firefox-website",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "postinstall": "npx playwright install firefox",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "playwright": "^1.44.0"
+  }
+}

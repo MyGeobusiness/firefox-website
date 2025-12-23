@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firefox Website</title>
+  <style>
+    body { font-family: Arial; background: #1e1e1e; color: white; padding: 20px; }
+    input { width: 70%; padding: 8px; }
+    button { padding: 8px; }
+    img { width: 100%; margin-top: 10px; border: 1px solid #444; }
+  </style>
+</head>
+<body>
+
+  <h2>Firefox-powered Website</h2>
+
+  <input id="url" placeholder="https://example.com">
+  <button onclick="browse()">Go</button>
+
+  <div id="viewer"></div>
+
+  <script>
+    async function browse() {
+      const url = document.getElementById("url").value;
+
+      if (!url.startsWith("http")) {
+        alert("Enter a valid URL starting with http or https");
+        return;
+      }
+
+      const res = await fetch("/browse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url })
+      });
+
+      if (!res.ok) {
+        alert("Failed to load page");
+        return;
+      }
+
+      const blob = await res.blob();
+      const imgURL = URL.createObjectURL(blob);
+
+      document.getElementById("viewer").innerHTML = `<img src="${imgURL}">`;
+    }
+  </script>
+
+</body>
+</html>
